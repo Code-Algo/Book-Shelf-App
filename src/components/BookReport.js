@@ -17,7 +17,7 @@ const Label = styled(Paper)(({ theme }) => ({
 
 export default function ImageMasonry() {
   return (
-    <Box sx={{ width: 1000, minHeight: 1000 }}>
+    <Box sx={{ width: 1000, minHeight: 1000, display: 'flex', mx: 'auto' }}>
       <Masonry columns={4} spacing={2}>
         {itemData.map((item, index) => (
           <div key={index}>
@@ -30,7 +30,7 @@ export default function ImageMasonry() {
               style={{
                 borderBottomLeftRadius: 4,
                 borderBottomRightRadius: 4,
-                display: 'block',
+                display: 'flex',
                 width: '100%',
               }}
             />

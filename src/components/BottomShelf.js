@@ -14,7 +14,7 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <BottomNavigation sx={{ width: 900}}  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+    <BottomNavigation sx={{width: 1000, position:"absolute", alignContent: "center", justifyContent: "center"}}>
       <BottomNavigationAction
         label="Recents"
         value="recents"
