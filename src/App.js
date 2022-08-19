@@ -11,12 +11,14 @@ import SingleBook from './components/SingleBook';
 import BooksPage from './views/BooksPage';
 import Login from "./views/Login.js"
 import {Route, Routes} from 'react-router-dom';
+import SnackBar from './components/SnackBar';
 
 const HomePage = ()=>(<h1>Welcome to Book Shelf</h1>)
 
 function App() {
   return (
     <>
+    <SnackBar/> 
     <NavBar>
     </NavBar>
     <Routes>
@@ -24,21 +26,6 @@ function App() {
         <Route path="/books" element={<BooksPage/>}/>
         <Route path="/login" element={<Login/>}/>
     </Routes>
-    {/* <SingleBook>
-    </SingleBook>
-    <LoginForm>
-    </LoginForm>
-    <RegisterForm>
-    </RegisterForm>
-    <EditUserForm>
-    </EditUserForm> */}
-    {/* <BookReport>
-    </BookReport>
-    <SpeedDial>
-    </SpeedDial>
-    <BottomShelf>
-    </BottomShelf> */}
-
     </>
   );
 }

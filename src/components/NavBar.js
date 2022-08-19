@@ -12,8 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { Link } from 'react-router-dom';
 
-const pages = ['Browse Books', 'My Books'];
+const pages = [<a style = {{textDecoration: 'none', color: 'white'}} href= '/books'>My Books</a>,
+<a style = {{textDecoration: 'none', color: 'white'}} href= '#' className="site_title" >Browse Books</a>,
+<a style = {{textDecoration: 'none', color: 'white'}} href= '/login'>Login</a>];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
@@ -39,7 +42,10 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+        <Typography variant="title" sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+            <img src="https://cdn.pixabay.com/photo/2012/04/13/16/43/bookshelf-32811_1280.png" alt="bug" height={100} />
+        </Typography>
+        {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />  */}
           <Typography
             variant="h6"
             noWrap
@@ -55,9 +61,8 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -128,7 +133,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Please Login" src={`https://avatars.dicebear.com/api/personas/${new Date().getDay()}.svg`} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -147,11 +152,15 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+            <MenuItem onClick={handleCloseUserMenu}>
+                <Link to ='/login' style={{textDecoration:'none', color: 'white'}}>
+                <Typography textAlign="center">Login</Typography>
+                </Link>
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
+           
             </Menu>
           </Box>
         </Toolbar>

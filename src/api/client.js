@@ -1,7 +1,7 @@
 import base64 from "base-64"
 import {create} from "apisauce"
 
-const base = "http://127.0.0.1:5000"
+const base = "https://cae-bootstore.herokuapp.com"
 
 export const apiClientNoAuth = (cancelToken) => create({
     baseURL: base,
