@@ -1,14 +1,50 @@
 import {createContext, useState, useReducer, useEffect} from "react"
 import { bookReducer, bookActions } from "../reducers/bookReducer";
+import BooksPage from "../views/BooksPage";
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({children}) => {
+//     const getUserFromLS=()=>{
+//         let u=localStorage.getItem('user')
+//         if (u){
+//             return JSON.parse(user)
+//         }
+//     }
 const [alert, setAlert] = useState({})
+const [books, setBooks] = useState({})
+const [user, setUser] = useState({})
+const [book, dispatch] = useReducer(bookReducer, [])
+
+//  const setUser=(user)=>{
+//     localStorage.setItem('user', JSON.stringify(user))
+//     _setUser(user)
+//}
+
 
     const values ={
         alert,
-        setAlert
+        setAlert,
+        books,
+        setBooks,
+        user,
+        setUser,
+        book,
+        addToBooks:(item)=>{
+        dispatch({type: bookActions.addToBooks, item})
+        },
+        addBulkToBooks:(item)=>{
+        dispatch({type: bookActions.addBulkToBooks, item})
+        },
+        removeFromBooks:(item)=>{
+        dispatch({type: bookActions.removeFromBooks, item})
+        },
+        removeAllFromBooks:(item)=>{
+        dispatch({type: bookActions.removeAllFromBooks, item})
+        },
+        emptyBooks:()=>{
+            dispatch({type: bookActions.emptyBooks})
+        }
     }
     return (
         <AppContext.Provider value={values}>
@@ -18,7 +54,7 @@ const [alert, setAlert] = useState({})
 }
 
 
-// export const AppContext = createContext();
+
 
 
 // const AppContextProvider = ({children})=>{

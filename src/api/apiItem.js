@@ -1,20 +1,20 @@
 import { apiClientNoAuth, apiClientTokenAuth } from "./client.js";
 
-const endpoint = '/api/item'
+const endpoint = '/user'
 
 const get = async (cancelToken) =>{
     let error
-    let items
+    let book
 
     const response = await apiClientNoAuth(cancelToken).get(endpoint)
     if (response.ok){
-        items = response.data.items
+        book = response.data.book
     }else{
         error = "An Unexpected Error Occurred.  Please Try Again Later"  
     }
     return {
         error,
-        items
+        book
     }
 }
 

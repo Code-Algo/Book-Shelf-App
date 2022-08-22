@@ -4,8 +4,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import  Avatar  from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import {useParams} from 'react-router-dom';
+import userSingleBook from '../hooks/useSingleBook';
+import { Box } from '@mui/system';
+import Error from './Error';
+import { CircularProgress } from '@mui/material';
 
-const ItemBook = styled(Paper)(({ theme }) => ({
+const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -14,22 +19,35 @@ const ItemBook = styled(Paper)(({ theme }) => ({
 }));
 
 
+
+
 export default function MyItem() {
-    const itemBook={
-        "id":2,
-        "name":"itemB",
-        "desc":"itemB is good",
-        "img":"https://res.cloudinary.com/cae67/image/upload/v1652745758/kyle1_plkclv.png",
-        "category_id":1,
-        "category_name":'Fiction'
-      }
+  
+  
+  const {bookId} = useParams();
+  const {item, error} = userSingleBook(bookId)
+  
+  if (!books){
+    return (
+        <Box sx={{ display:"flex"}}>
+            <CircularProgress/>
+        </Box>
+     )
+  } 
+    if (error){
+       return (
+           <Box sx={{ display:"flex"}}>
+                <Error>{error}</Error>
+           </Box>
+      )
+   } 
 
   return (
 
       <Grid container spacing={1} sx={{m:1, pr:2, border:'1px solid', borderRadius:1}}>
         <Grid item sm={12} xs={12}  md={12}>
           <Item sx={{display:"flex", justifyContent: 'center'}}>
-             <Avatar alt={item.name} sx={{height:'30%', width:'30%'}} variant="rounded"/>
+             <Avatar src={item.img} alt={item.name} sx={{height:'30%', width:'30%'}} variant="rounded"/>
           </Item>
         </Grid>
         <Grid item sm={12} xs={12}  md={12}>

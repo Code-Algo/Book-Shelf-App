@@ -1,30 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import TextField from '@mui/material/TextField'
 import Button from '../components/Button'
+import useCreate from '../hooks/useCreate'
 
 const FormSchema = Yup.object(
     {   
-        username: Yup.string().required(),
+        first_name: Yup.string().required(),
+        last_name:Yup.string().required(),
         email:Yup.string().email("Must be a valid e-mail format").required(),
-        password:Yup.string().required(),
-        confirmPassword: Yup.string().required()
+        password: Yup.string().required()
 
     }
 )
 
-const initialValues={
-    username:'',
-    email:'',
-    password:'',
-    confirmPassword:''
-}
 
-export default function RegisterForm() {
-    const handleSubmit=(values)=>{
-        console.log(values)
+export default function RegisterForm({ user }) {
+    const [newUser, setNewUser] = useState()
+    useCreate(newUser)
+    
+    const initialValues={
+        email:'',
+        first_name:'',
+        last_name:'',
+        password:''
     }
+    const handleSubmit=(values)=>{
+    if(user){
+        console.log("Editing ", values)
+    }else{
+        console.log("Creating ", values)
+        setNewUser(values)
+    }
+}
 
     const formik = useFormik({
         initialValues: initialValues,
@@ -35,16 +44,28 @@ export default function RegisterForm() {
     return (
         <form onSubmit={formik.handleSubmit}>
             <TextField
-                id ="username"
-                name="username"
+                id ="first_name"
+                name="first_name"
                 fullWidth
                 sx={{mb: 2, mt:2}}
-                label="Username"
-                placeholder="Username"
-                value={formik.values.username}
+                label="First Name"
+                placeholder="First Name"
+                value={formik.values.first_name}
                 onChange={formik.handleChange}
-                error = {formik.touched.username && Boolean(formik.errors.username)}
-                helperText={formik.touched.username && formik.errors.username}
+                error = {formik.touched.first_name && Boolean(formik.errors.first_name )}
+                helperText={formik.touched.first_name  && formik.errors.first_name }
+            />
+            <TextField
+                id ="last_name"
+                name="last_name"
+                fullWidth
+                sx={{mb: 2, mt:2}}
+                label="Last Name"
+                placeholder="Last Name"
+                value={formik.values.last_name}
+                onChange={formik.handleChange}
+                error = {formik.touched.last_name && Boolean(formik.errors.last_name)}
+                helperText={formik.touched.last_name && formik.errors.last_name}
             />
             <TextField
                 id ="email"
@@ -70,19 +91,6 @@ export default function RegisterForm() {
                 onChange={formik.handleChange}
                 error = {formik.touched.password && Boolean(formik.errors.password)}
                 helperText={formik.touched.password && formik.errors.password}
-            />
-            <TextField
-                id ="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                fullWidth
-                sx={{mb: 2, mt:2}}
-                label="Confirm Password"
-                placeholder="Confirm Password"
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                error = {formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             />
             <Button type="submit" sx={{ width:"100%"}}>Register</Button>
         </form>
